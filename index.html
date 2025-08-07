@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mundo Brawl Stars</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Bangers&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Bangers', cursive;
+      background-color: #1a1a2e;
+      color: #fff;
+    }
+    .bg-brawl {
+      background-color: #ffcc00;
+    }
+    .nav-link {
+      color: #000 !important;
+    }
+    .btn-primary {
+      background-color: #ff0055;
+      border: none;
+    }
+    .form-control, .form-label {
+      color: #000;
+    }
+    .formulario {
+      background-color: #f8f8f8 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="p-4 p-md-5 bg-brawl shadow-sm">
+    <nav class="container d-flex justify-content-between align-items-center flex-wrap" aria-label="Menu principal">
+      <a href="#inicio" class="d-inline-block mb-3 mb-md-0">
+        <img src="img/logo-brawl.png" class="nav-img" loading="lazy" alt="Logo Brawl Stars" style="height: 80px;" />
+      </a>
+
+      <ul class="nav gap-3 mb-3 mb-md-0" role="menubar">
+        <li class="nav-item" role="none"><a href="#inicio" class="nav-link" role="menuitem">Início</a></li>
+        <li class="nav-item" role="none"><a href="#galeria" class="nav-link" role="menuitem">Brawlers</a></li>
+        <li class="nav-item" role="none"><a href="#contato" class="nav-link" role="menuitem">Contato</a></li>
+      </ul>
+
+      <div id="acessibilidade" class="menu-acessibilidade" aria-label="Menu de acessibilidade" role="region">
+        <button id="botao-acessibilidade" class="btn btn-primary fw-bold" aria-expanded="false">Acessibilidade</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5">
+    <section id="inicio" class="my-5">
+      <div class="inicio-fundo d-flex flex-column flex-lg-row justify-content-between align-items-center rounded-4 shadow-lg p-4 p-lg-5 bg-dark">
+        <div class="text-center text-lg-start mb-4 mb-lg-0">
+          <h1 class="display-4 text-warning mb-3">
+            Bem-vindo ao Mundo Brawl Stars!
+          </h1>
+          <img src="img/brawl-logo.png" class="mb-3 img-fluid" style="max-width: 400px;" alt="Logo Brawl Stars" />
+          <a href="#galeria" class="btn btn-primary btn-lg fw-semibold">Ver Brawlers</a>
+        </div>
+        <img src="img/personagens-brawl.png" alt="Personagens Brawl" class="img-fluid rounded-4 shadow" style="max-width: 600px;" />
+      </div>
+    </section>
+
+    <section id="suplementos" class="my-5 pt-5 bg-light text-dark rounded-4 shadow-sm p-4" tabindex="0" aria-label="Informações sobre o jogo">
+      <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+        <div class="col-md-4 d-flex justify-content-center">
+          <img src="img/colt.png" class="rounded-pill shadow" width="273" height="331" loading="lazy" alt="Colt Brawler" />
+        </div>
+        <div class="col-md-7">
+          <h2 class="fs-1 text-danger">O que é Brawl Stars?</h2>
+          <p class="lead">
+            Brawl Stars é um jogo de ação multiplayer da Supercell com batalhas frenéticas em tempo real. Escolha seu Brawler favorito e entre na arena para competir em modos como Combate, Roubo, Pique-Gema e mais!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" tabindex="0" aria-label="Galeria de Brawlers" class="my-5">
+      <h2 class="text-center pt-5 mb-4">Galeria de Brawlers</h2>
+      <div class="container p-3 mt-3 bg-dark rounded-4 shadow-sm">
+        <div class="row justify-content-center g-4">
+          <div class="col-md-3">
+            <img src="img/shelly.jpg" class="img-fluid rounded-5 shadow" alt="Shelly" />
+          </div>
+          <div class="col-md-3">
+            <img src="img/colt.png" class="img-fluid rounded-5 shadow" alt="Colt" />
+          </div>
+          <div class="col-md-3">
+            <img src="img/crow.jpg" class="img-fluid rounded-5 shadow" alt="Crow" />
+          </div>
+          <div class="col-md-3">
+            <img src="img/leon.jpg" class="img-fluid rounded-5 shadow" alt="Leon" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="my-5">
+      <div class="container p-5 d-flex justify-content-center">
+        <div class="col-md-8 col-lg-10 rounded-5 formulario shadow p-4">
+          <h2 class="mb-4 text-center text-dark">Fale com a Equipe Brawl</h2>
+          <form>
+            <div class="form-group mb-3">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" id="nome" name="nome" class="form-control rounded-3" placeholder="Seu nome de Brawler" required />
+            </div>
+            <div class="form-group mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-control rounded-3" placeholder="Seu e-mail" required />
+            </div>
+            <div class="form-group mb-4">
+              <label for="mensagem" class="form-label">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" class="form-control rounded-4" rows="4" placeholder="Diga oi!" required></textarea>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg rounded-pill">Enviar mensagem</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center p-3 fst-italic bg-brawl shadow-sm text-dark">
+    <p>Nos siga nas redes:</p>
+    <div class="fs-3 d-flex justify-content-center gap-3">
+      <a href="#" aria-label="Whatsapp" class="text-dark"><i class="bi bi-whatsapp"></i></a>
+      <a href="#" aria-label="Instagram" class="text-dark"><i class="bi bi-instagram"></i></a>
+      <a href="#" aria-label="TikTok" class="text-dark"><i class="bi bi-tiktok"></i></a>
+    </div>
+    <p class="mt-3 mb-0">Desenvolvido por Wellyngton. Fã projeto inspirado em Brawl Stars.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
