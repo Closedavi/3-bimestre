@@ -1,48 +1,77 @@
-// script.js — versão corrigida e mais robusta
+// script.js — versão robusta
 document.addEventListener('DOMContentLoaded', () => {
   const botaoAcessibilidade = document.getElementById('botao-acessibilidade');
-  const opcoesAcessibilidade = document.getElementById('opcoes-acessibilidade');
+  const acessibilidadeWrap = document.getElementById('acessibilidade');
+  let opcoesAcessibilidade = document.getElementById('opcoes-acessibilidade');
+
+  // Se o container de opções não existir, tenta criar (fallback)
+  if (!opcoesAcessibilidade && acessibilidadeWrap) {
+    opcoesAcessibilidade = document.createElement('div');
+    opcoesAcessibilidade.id = 'opcoes-acessibilidade';
+    opcoesAcessibilidade.className = 'opcoes-acessibilidade';
+    opcoesAcessibilidade.setAttribute('hidden', '');
+
+    // botões
+    const btnA = document.createElement('button');
+    btnA.id = 'aumentar-fonte';
+    btnA.type = 'button';
+    btnA.className = 'btn btn-primary fw-bold';
+    btnA.textContent = 'A+';
+    btnA.setAttribute('aria-label', 'Aumentar o tamanho da fonte');
+
+    const btnD = document.createElement('button');
+    btnD.id = 'diminuir-fonte';
+    btnD.type = 'button';
+    btnD.className = 'btn btn-primary fw-bold';
+    btnD.textContent = 'A-';
+    btnD.setAttribute('aria-label', 'Diminuir o tamanho da fonte');
+
+    const btnC = document.createElement('button');
+    btnC.id = 'alterna-contraste';
+    btnC.type = 'button';
+    btnC.className = 'btn btn-primary fw-bold';
+    btnC.innerHTML = '<i class="bi bi-shadows"></i>';
+    btnC.setAttribute('aria-label', 'Alternar o contraste de cores');
+
+    opcoesAcessibilidade.appendChild(btnA);
+    opcoesAcessibilidade.appendChild(btnD);
+    opcoesAcessibilidade.appendChild(btnC);
+    acessibilidadeWrap.appendChild(opcoesAcessibilidade);
+  }
+
+  // referências (podem ser criadas acima)
   const aumentarFonte = document.getElementById('aumentar-fonte');
   const diminuirFonte = document.getElementById('diminuir-fonte');
   const alternaContraste = document.getElementById('alterna-contraste');
   const body = document.body;
 
-  // inicializa tamanho da fonte (fallback se parse falhar)
+  // --- restauração / inicialização ---
   let fontSize = parseFloat(getComputedStyle(body).fontSize);
-  if (isNaN(fontSize)) fontSize = 16;
+  if (isNaN(fontSize)) fontSize = 16; // fallback
 
-  // restaura tamanho salvo (se houver)
   const savedSize = parseFloat(localStorage.getItem('siteFontSize'));
   if (!isNaN(savedSize)) {
     fontSize = savedSize;
     body.style.fontSize = fontSize + 'px';
   }
 
-  // restaura contraste salvo
   if (localStorage.getItem('altoContraste') === '1') {
     body.classList.add('alto-contraste');
   }
 
-  /* ---------------------------
-     Menu de acessibilidade
-     --------------------------- */
-  if (botaoAcessibilidade && opcoesAcessibilidade) {
-    // garante estado inicial consistente
+  // --- Menu de acessibilidade (toggle) ---
+  if (botaoAcessibilidade) {
     if (!botaoAcessibilidade.hasAttribute('aria-expanded')) {
       botaoAcessibilidade.setAttribute('aria-expanded', 'false');
-    }
-    // se opcoes estiver sem atributo hidden, adiciona por segurança
-    if (!opcoesAcessibilidade.hasAttribute('hidden')) {
-      opcoesAcessibilidade.setAttribute('hidden', '');
     }
 
     botaoAcessibilidade.addEventListener('click', () => {
       const expanded = botaoAcessibilidade.getAttribute('aria-expanded') === 'true';
       botaoAcessibilidade.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-      opcoesAcessibilidade.toggleAttribute('hidden');
+      if (opcoesAcessibilidade) opcoesAcessibilidade.toggleAttribute('hidden');
 
-      if (!opcoesAcessibilidade.hasAttribute('hidden')) {
-        // foca no primeiro botão dentro das opções (melhora acessibilidade)
+      if (opcoesAcessibilidade && !opcoesAcessibilidade.hasAttribute('hidden')) {
+        // foca primeiro botão nas opções
         const firstFocusable = opcoesAcessibilidade.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         if (firstFocusable) firstFocusable.focus();
       } else {
@@ -50,19 +79,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // fechar ao pressionar Esc
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !opcoesAcessibilidade.hasAttribute('hidden')) {
-        opcoesAcessibilidade.setAttribute('hidden', '');
-        botaoAcessibilidade.setAttribute('aria-expanded', 'false');
-        botaoAcessibilidade.focus();
+    // suporte teclado: Enter / Space abre/fecha
+    botaoAcessibilidade.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        botaoAcessibilidade.click();
       }
     });
   }
 
-  /* ---------------------------
-     Aumentar / Diminuir fonte
-     --------------------------- */
+  // fechar com Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && opcoesAcessibilidade && !opcoesAcessibilidade.hasAttribute('hidden')) {
+      opcoesAcessibilidade.setAttribute('hidden', '');
+      if (botaoAcessibilidade) botaoAcessibilidade.setAttribute('aria-expanded', 'false');
+      if (botaoAcessibilidade) botaoAcessibilidade.focus();
+    }
+  });
+
+  // --- aumentar / diminuir fonte ---
   if (aumentarFonte) {
     aumentarFonte.addEventListener('click', () => {
       if (fontSize < 24) {
@@ -83,9 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------------------------
-     Alternar contraste
-     --------------------------- */
+  // --- contraste ---
   if (alternaContraste) {
     alternaContraste.addEventListener('click', () => {
       const ativo = body.classList.toggle('alto-contraste');
