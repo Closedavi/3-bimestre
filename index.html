@@ -143,3 +143,24 @@
 </body>
 
 </html>
+<div id="acessibilidade" class="menu-acessibilidade" aria-label="Menu de acessibilidade" role="region">
+  <button
+    id="botao-acessibilidade"
+    class="btn btn-primary fw-bold"
+    aria-expanded="false"
+    aria-controls="opcoes-acessibilidade"
+    aria-haspopup="true"
+    type="button"
+  >
+    Acessibilidade
+  </button>
+
+  <!-- container de opções (inicialmente oculto) -->
+  <div id="opcoes-acessibilidade" class="opcoes-acessibilidade" hidden>
+    <button id="aumentar-fonte" class="btn btn-primary fw-bold" type="button" aria-label="Aumentar o tamanho da fonte">A+</button>
+    <button id="diminuir-fonte" class="btn btn-primary fw-bold" type="button" aria-label="Diminuir o tamanho da fonte">A-</button>
+    <button id="alterna-contraste" class="btn btn-primary fw-bold" type="button" aria-label="Alternar o contraste de cores">
+      <i class="bi bi-shadows"></i>
+    </button>
+  </div>
+</div>
